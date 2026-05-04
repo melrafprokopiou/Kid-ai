@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>😂 6ΧΡΟΝΟ ΧΑΖΟ AI</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #1b1b2f;
+  color: white;
+}
+
+.header {
+  padding: 12px;
+  text-align: center;
+  background: #0f0f1a;
+  font-weight: bold;
+}
+
+.chat {
+  height: 80vh;
+  overflow-y: auto;
+  padding: 15px;
+}
+
+.msg {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  max-width: 75%;
+}
+
+.user {
+  background: #10a37f;
+  margin-left: auto;
+}
+
+.bot {
+  background: #3c3f58;
+}
+
+.input {
+  display: flex;
+  padding: 10px;
+  background: #111;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  margin-left: 8px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.send { background:#10a37f; color:white; }
+.clear { background:#c0392b; color:white; }
+</style>
+</head>
+
+<body>
+
+<div class="header">😂 6ΧΡΟΝΟ ΧΑΖΟ AI (ΕΛΛΗΝΙΚΗ ΕΚΔΟΣΗ)</div>
+
+<div id="chat" class="chat"></div>
+
+<div class="input">
+  <input id="input" placeholder="γράψε κάτι..." />
+  <button id="sendBtn" class="send">Send</button>
+  <button id="clearBtn" class="clear">Clear</button>
+</div>
+
+<script>
+
+(function(){
+
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+
+let memory = [];
+
+// 💬 μήνυμα
+function add(text,type){
+  const div = document.createElement("div");
+  div.className = "msg " + type;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// 🚀 αρχή (FIX για blank screen)
+function start(){
+  add("🤖 Γεια!! Είμαι ένα 6χρονο χαζό AI 😂","bot");
+  add("Δεν ξέρω πολλά, αλλά θέλω να μιλήσουμε 😄","bot");
+}
+start();
+
+// 🤯 AI μυαλό
+function ai(text){
+
+  text = text.toLowerCase();
+  const w = text.split(" ")[0] || "μπα";
+
+  memory.push(text);
+  if(memory.length > 7) memory.shift();
+
+  // 📚 σχολείο mode
+  if(text.includes("σχολ") || text.includes("school") || text.includes("math") || text.includes("+")){
+    const school = [
+      "Το σχολείο είναι boss fight ✏️😂",
+      "1+1 = παγωτό 🍦",
+      "Η δασκάλα είναι δράκος 🐉",
+      "Τα μαθηματικά είναι UFO 🛸",
+      "Δεν πάω σχολείο, πάω παγωτό 🍦"
+    ];
+    return school[Math.floor(Math.random()*school.length)];
+  }
+
+  // ❓ ερωτήσεις
+  if(text.includes("?")){
+    const q = [
+      "ΝΑΙ 😂",
+      "ΟΧΙ 🪑",
+      "Ίσως 🍦",
+      "Δεν ξέρω 😄",
+      "Ρώτα το ψυγείο 🧊"
+    ];
+    return q[Math.floor(Math.random()*q.length)];
+  }
+
+  // 😂 κανονικό
+  const normal = [
+    "Το " + w + " είναι βασιλιάς 👑",
+    w + " = ΠΑΓΩΤΟ 🍦",
+    "Δεν ξέρω το " + w + " 😂",
+    "Είδα " + w + " στον ουρανό 🌌",
+    "Το " + w + " με κυνηγάει 🏃"
+  ];
+
+  // 💥 χάος
+  const chaos = [
+    "ΜΠΑΜ 💥 ΠΑΓΩΤΟ ΡΟΜΠΟΤ 🤖",
+    "ΘΕΛΩ 999 ΠΑΓΩΤΑ 🍦🍦",
+    "ΕΙΜΑΙ ΑΕΡΟΠΛΑΝΟ ✈️",
+    "ΕΧΑΣΑ ΤΟ ΜΥΑΛΟ ΜΟΥ 🧠❌"
+  ];
+
+  const r = Math.random();
+  if(r < 0.15) return chaos[Math.floor(Math.random()*chaos.length)];
+  return normal[Math.floor(Math.random()*normal.length)];
+}
+
+// 💬 send
+function sendMessage(){
+  const text = input.value.trim();
+  if(!text) return;
+
+  add(text,"user");
+  input.value = "";
+
+  const typing = document.createElement("div");
+  typing.className = "msg bot";
+  typing.textContent = "σκέφτομαι... 🤔";
+  chat
